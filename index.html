@@ -9,6 +9,7 @@
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
         integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
     <title>Eval Buisness Case</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
@@ -19,11 +20,14 @@
         <span class="temps_resa"></span>
     </header>
 
-    <div class="zone adresse">
+    <form id="zone_adresse">
+
         <p>Adresse</p>
-        <input type="text" class="adresse">
-        <button class="btn_recherce">Rechercher</button>
-    </div>
+        <input type="text" id="adresse">
+        <button type="submit" class="btn_recherce">Rechercher</button>
+
+        <p id="resultat_recherche"></p>
+    </form>
 
     <div class="zone_basculer_vue">
         <button class="btn_basculer_vue">Basculer vue</button>
@@ -31,7 +35,7 @@
 
     <div class="zone_map">
         <h2>Autour de vous</h2>
-        <div class="map"></div>
+        <div id="map"></div>
     </div>
 
     <div class="nouvelle_resa">
