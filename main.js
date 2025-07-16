@@ -78,8 +78,37 @@ function obtenirGeolocalisation() {
 }
 
 
+/******************************** */
+/*******Bornes à proximité ********/
+/******************************** */
+
+
 /**Fonction récupérer bornes dans un rayon de 5 km */
+function recupererBornesProches() {
+
+    //récupération du json avec les bornes
+    fetch("bornes.json")
+        .then(response => {
+            if (!response.ok) throw new Error("Erreur chargement du json");
+            return response.json();
+        })
+        .then(data => {
+            console.log(data);
+
+            //Utilisation du .featurs car json contient des object sinon .forEach
+            data.features.forEach(borne => {
+                const [lon, lat] = borne.geometry.coordinates; //inverse coordonnées pour adapter à leafet
+                L.marker([lat, lon]).addTo(map); //ajout marker par borne
+            });
+
+        })
+        .catch(error => {
+            console.error("Erreur : ", error);
+        });
+}
 
 afficherMap();
 obtenirGeolocalisation();
+recupererBornesProches();
+
 

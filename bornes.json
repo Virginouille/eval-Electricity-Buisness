@@ -1,0 +1,537 @@
+{
+    "type": "FeatureCollection",
+    "generator": "overpass-turbo",
+    "copyright": "The data included in this document is from www.openstreetmap.org. The data is made available under ODbL.",
+    "timestamp": "2025-07-15T15:16:45Z",
+    "features": [
+        {
+            "type": "Feature",
+            "properties": {
+                "@id": "node/5031636772",
+                "amenity": "charging_station",
+                "capacity": "4",
+                "socket:type3c": "4",
+                "socket:typee": "4"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    3.1195684,
+                    45.7832494
+                ]
+            },
+            "id": "node/5031636772"
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "@id": "node/5861929486",
+                "amenity": "charging_station",
+                "capacity": "6",
+                "operator": "Hager"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    3.1294539,
+                    45.7608521
+                ]
+            },
+            "id": "node/5861929486"
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "@id": "node/7468393166",
+                "access": "private",
+                "amenity": "charging_station",
+                "capacity": "1",
+                "description": "Borne de recharge réservée à l'entreprise",
+                "fee": "no",
+                "motorcar": "yes",
+                "source": "survey"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    3.1355761,
+                    45.7583691
+                ]
+            },
+            "id": "node/7468393166"
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "@id": "node/7468393167",
+                "access": "customers",
+                "amenity": "charging_station",
+                "capacity": "2",
+                "description": "Borne de recharge réservée aux visiteurs et aux salariés",
+                "fee": "no",
+                "motorcar": "yes",
+                "source": "CRAIG - IGN - TopoGEODIS - Feder Auvergne-Rhône-Alpes 2016"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    3.1355982,
+                    45.7584009
+                ]
+            },
+            "id": "node/7468393167"
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "@id": "node/7559066485",
+                "amenity": "charging_station",
+                "capacity": "4",
+                "socket:type3c": "4",
+                "socket:typee": "4"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    3.1250912,
+                    45.7800239
+                ]
+            },
+            "id": "node/7559066485"
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "@id": "node/9091702517",
+                "amenity": "charging_station"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    3.1280764,
+                    45.7796068
+                ]
+            },
+            "id": "node/9091702517"
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "@id": "node/9092480097",
+                "amenity": "charging_station",
+                "authentication:membership_card": "yes",
+                "capacity": "1",
+                "fee": "no",
+                "operator": "Effia",
+                "operator:wikidata": "Q3045894",
+                "socket:type2": "1",
+                "socket:type2:output": "5",
+                "socket:typee": "1"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    3.1024662,
+                    45.7782186
+                ]
+            },
+            "id": "node/9092480097"
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "@id": "node/9092480098",
+                "amenity": "charging_station",
+                "authentication:membership_card": "yes",
+                "capacity": "2",
+                "fee": "no",
+                "operator": "Effia",
+                "operator:wikidata": "Q3045894",
+                "socket:type2": "2",
+                "socket:type2:output": "5",
+                "socket:typee": "2"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    3.1023066,
+                    45.7781569
+                ]
+            },
+            "id": "node/9092480098"
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "@id": "node/9571073042",
+                "access": "private",
+                "amenity": "charging_station",
+                "amperage": "32",
+                "capacity": "3",
+                "fee": "no",
+                "motorcar": "yes",
+                "name": "Aubert & Duval La Pardieu",
+                "opening_hours": "24/7",
+                "socket:type2": "3",
+                "voltage": "230"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    3.1310284,
+                    45.758371
+                ]
+            },
+            "id": "node/9571073042"
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "@id": "node/9835368517",
+                "amenity": "charging_station",
+                "survey:date": "2022-06-21"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    3.0685115,
+                    45.7764768
+                ]
+            },
+            "id": "node/9835368517"
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "@id": "node/10110625117",
+                "access": "yes",
+                "addr:street": "Place des Bughes",
+                "amenity": "charging_station",
+                "brand": "Orios by Spie",
+                "capacity": "2",
+                "fee": "yes",
+                "survey:date": "2022-10-18"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    3.0849936,
+                    45.7855064
+                ]
+            },
+            "id": "node/10110625117"
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "@id": "node/10258963708",
+                "amenity": "charging_station",
+                "capacity": "2",
+                "fee": "yes",
+                "motorcar": "yes",
+                "opening_hours": "24/7",
+                "operator": "SIEG Puy-de-Dôme"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    3.1001153,
+                    45.7311326
+                ]
+            },
+            "id": "node/10258963708"
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "@id": "node/10271677147",
+                "access": "private",
+                "amenity": "charging_station",
+                "capacity": "2",
+                "motorcar": "yes",
+                "source": "survey",
+                "survey:date": "2022-05-20"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    3.1343255,
+                    45.7592622
+                ]
+            },
+            "id": "node/10271677147"
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "@id": "node/10784673672",
+                "amenity": "charging_station",
+                "capacity": "2",
+                "fee": "yes",
+                "operator": "Ze-Watt"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    3.0901419,
+                    45.7843563
+                ]
+            },
+            "id": "node/10784673672"
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "@id": "node/10790442857",
+                "amenity": "charging_station",
+                "capacity": "2",
+                "operator": "Ze-Watt"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    3.0903733,
+                    45.7845145
+                ]
+            },
+            "id": "node/10790442857"
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "@id": "node/10790442858",
+                "amenity": "charging_station",
+                "capacity": "2",
+                "operator": "Ze-Watt"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    3.0903646,
+                    45.7844607
+                ]
+            },
+            "id": "node/10790442858"
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "@id": "node/10817077447",
+                "amenity": "charging_station",
+                "authentication:none": "yes",
+                "capacity": "2",
+                "email": "info-usager.silene@spie.com",
+                "fee": "yes",
+                "motorcar": "yes",
+                "network": "SIEG63",
+                "opening_hours": "24/7",
+                "operator": "SPIE CityNetworks",
+                "owner": "SIEG63",
+                "payment:credit_cards": "yes",
+                "phone": "+33970830213",
+                "ref:EU:EVSE": "FR*S63*P63113J",
+                "reservation": "yes",
+                "socket:chademo": "1",
+                "socket:type2": "1",
+                "socket:type2_combo": "1",
+                "socket:typee": "1",
+                "source": "data.gouv.fr:Etalab - 05/2022",
+                "wheelchair": "yes"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    3.0838029,
+                    45.7649137
+                ]
+            },
+            "id": "node/10817077447"
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "@id": "node/10893942247",
+                "access": "yes",
+                "amenity": "charging_station",
+                "capacity": "2",
+                "fee": "yes"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    3.1395876,
+                    45.740944
+                ]
+            },
+            "id": "node/10893942247"
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "@id": "node/10951924135",
+                "amenity": "charging_station",
+                "capacity": "2",
+                "motorcar": "yes",
+                "source": "survey",
+                "survey:date": "2023-04-13"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    3.126647,
+                    45.7576106
+                ]
+            },
+            "id": "node/10951924135"
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "@id": "node/11303044071",
+                "amenity": "charging_station",
+                "capacity": "2",
+                "fee": "yes",
+                "indoor": "yes",
+                "motorcar": "yes",
+                "operator": "Ingeteam"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    3.1297296,
+                    45.7588881
+                ]
+            },
+            "id": "node/11303044071"
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "@id": "node/11691641283",
+                "access": "yes",
+                "amenity": "charging_station",
+                "authentication:none": "yes",
+                "capacity": "2",
+                "fee": "yes",
+                "manufacturer": "e-Totem",
+                "motorcar": "yes",
+                "name": "Clermont-Ferrand - Place de la Rodade",
+                "network": "SIEG63",
+                "opening_hours": "24/7",
+                "operator": "SPIE CityNetworks",
+                "operator:email": "info-usager.silene@spie.com",
+                "operator:phone": "+33970830213",
+                "owner": "SIEG63",
+                "parking:fee": "no",
+                "payment:contactless": "yes",
+                "payment:credit_cards": "yes",
+                "payment:debit_cards": "yes",
+                "ref:EU:EVSE": "FR*S63*P63113C",
+                "reservation": "yes",
+                "socket:chademo": "1",
+                "socket:chademo:output": "25 kW",
+                "socket:type2": "1",
+                "socket:type2:output": "22 kW",
+                "socket:type2_combo": "1",
+                "socket:type2_combo:output": "25 kW",
+                "socket:typee": "1",
+                "socket:typee:output": "3.7 kW",
+                "source:position": "RTK GNSS (accuracy < 5 cm).",
+                "start_date": "2022-10-06",
+                "survey:date": "2024-03-04",
+                "wheelchair": "yes"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    3.1080763,
+                    45.7935098
+                ]
+            },
+            "id": "node/11691641283"
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "@id": "node/12137985647",
+                "amenity": "charging_station",
+                "capacity": "3",
+                "fee": "yes",
+                "name": "Effia",
+                "operator": "Effia",
+                "operator:wikidata": "Q3045894"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    3.1023228,
+                    45.7781564
+                ]
+            },
+            "id": "node/12137985647"
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "@id": "node/12987354792",
+                "amenity": "charging_station",
+                "capacity": "2",
+                "operator": "Izivia"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    3.1356362,
+                    45.7523921
+                ]
+            },
+            "id": "node/12987354792"
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "@id": "node/12997899702",
+                "amenity": "charging_station",
+                "operator": "Electra"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    3.1377801,
+                    45.7891778
+                ]
+            },
+            "id": "node/12997899702"
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "@id": "node/12997906801",
+                "amenity": "charging_station"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    3.1379983,
+                    45.7896267
+                ]
+            },
+            "id": "node/12997906801"
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "@id": "node/12997913701",
+                "amenity": "charging_station"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    3.1406897,
+                    45.7857259
+                ]
+            },
+            "id": "node/12997913701"
+        }
+    ]
+}
