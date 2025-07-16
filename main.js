@@ -83,7 +83,7 @@ function obtenirGeolocalisation() {
 /******************************** */
 
 
-/**Fonction récupérer bornes dans un rayon de 5 km */
+/**Fonction récupérer bornes dans un rayon de 5 km et afficher markeurs */ //A améliorer en divisant le fonction en deux récup bornes et afficher markeurs
 function recupererBornesProches() {
 
     //récupération du json avec les bornes
@@ -101,14 +101,37 @@ function recupererBornesProches() {
                 L.marker([lat, lon]).addTo(map); //ajout marker par borne
             });
 
+            afficherEnListe(data); //récupération de la fonction afficherenliste
+
         })
         .catch(error => {
             console.error("Erreur : ", error);
         });
+
+    return data.features;
 }
+
+/**Fonction qui affiche les bornes sous forme de liste html */
+function afficherEnListe(data) {
+
+    const bornes = data.features;
+    const liste = document.getElementById("liste_html");
+
+    bornes.forEach(borne => {
+
+        const [lon, lat] = borne.geometry.coordinates;
+        const li = document.createElement("li");
+        li.textContent = `Borne : ${borne.properties.name || "Nom inconnu"} (${lat}, ${lon})`;
+        liste.appendChild(li);
+
+    });
+}
+
+
 
 afficherMap();
 obtenirGeolocalisation();
 recupererBornesProches();
+
 
 
