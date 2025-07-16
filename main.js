@@ -204,8 +204,34 @@ function fermerModale() {
     modale.style.display = "none";
 }
 
-/**Fonction formatage de données du form */
-function formatageDonnees() { }
+/************************************************ */
+/*********FORMATAGE DES DONNEES DU FORM ********** */
+/******************************** *****************/
+
+/*Fonction pour obtenir la date du jour*/
+function getDateDuJour() {
+    const today = new Date();
+    const yyyy = today.getFullYear();
+    const mm = String(today.getMonth() + 1).padStart(2, '0');
+    const dd = String(today.getDate()).padStart(2, '0');
+    return `${yyyy}-${mm}-${dd}`;
+}
+
+/**Fonction pour obtenir l'heure de début par défaut entre 6h et 22h*/
+function getHeureParDefaut() {
+    const now = new Date();
+    let h = now.getHours();
+    if (h < 6) h = 6;
+    if (h > 22) h = 22;
+    return `${String(h).padStart(2, '0')}:00`;
+}
+
+/* Fonction pour initialiser les valeurs du formulaire*/
+function initialiserFormulaire() {
+    document.getElementById('date_resa').value = getDateDuJour();
+    document.getElementById('heure_resa').value = getHeureParDefaut();
+    document.getElementById('duree_resa').value = 1;
+}
 
 /******************************** */
 /*********RESERVATION BORNES********** */
@@ -216,7 +242,7 @@ function reserverBorne() {
     //heure format 24 h
 }
 
-
+initialiserFormulaire();
 afficherMap();
 obtenirGeolocalisation();
 basculerVue();
