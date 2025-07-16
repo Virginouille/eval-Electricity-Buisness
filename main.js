@@ -308,6 +308,8 @@ function gererSoumission(event) {
     event.target.reset();
     initialiserFormulaire();
     fermerModale();
+
+    afficherHistorique();
 }
 
 
@@ -321,7 +323,7 @@ function lireResaLocalStorage() {
 
     if (!objectString) {
         console.log("Aucune réservation trouvée");
-        return;
+        return [];
     }
 
     let reservations = JSON.parse(objectString);
@@ -335,10 +337,53 @@ function lireResaLocalStorage() {
         console.log(`- Heure de début : ${resa.heureDebut}`);
         console.log(`- Durée : ${resa.duree}h`);
     });
+
+    return reservations;
 }
 
 /**Fonction qui affiche l'historiue dans un tableau / avec supression et maj du local storage */
+function afficherHistorique() {
 
+    const tbody = document.getElementById("tbody");
+    tbody.innerHTML = "";
+
+    const reservations = lireResaLocalStorage(); //Récup les résas
+
+    reservations.forEach((resa, index) => {
+        const tr = document.createElement("tr");
+
+        const tdId = document.createElement("td");
+        tdId.textContent = resa.idBorne;
+
+        const tdType = document.createElement("td");
+        tdType.textContent = resa.typeBorne;
+
+        const tdDate = document.createElement("td");
+        tdDate.textContent = resa.date;
+
+        const tdHeure = document.createElement("td");
+        tdHeure.textContent = resa.heureDebut;
+
+        const tdDuree = document.createElement("td");
+        tdDuree.textContent = resa.duree;
+
+        const tdBtn = document.createElement("td");
+        const btnSupprimer = document.createElement("button");
+        btnSupprimer.textContent = "Supprimer";
+
+        tdBtn.appendChild(btnSupprimer);
+
+        tr.appendChild(tdId);
+        tr.appendChild(tdType);
+        tr.appendChild(tdDate);
+        tr.appendChild(tdHeure);
+        tr.appendChild(tdDuree);
+        tr.appendChild(tdBtn);
+
+        tbody.appendChild(tr);
+    });
+
+}
 
 /****************************************************** */
 /*********INITIALISATION AU CHARGEMENT DU DOM********** */
@@ -352,6 +397,7 @@ document.addEventListener("DOMContentLoaded", () => {
     recupererBornesProches(); // Charge et affiche les bornes
     basculerVue(); // Active le bouton bascule vue
     lireResaLocalStorage();
+    afficherHistorique();
     document.getElementById("form_resa").addEventListener("submit", gererSoumission); // Ajoute l'écouteur de soumission
     document.getElementById("fermer_modale").addEventListener("click", fermerModale); //bouton avec cet ID pour fermer la modale
 });
