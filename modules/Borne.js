@@ -6,9 +6,9 @@ export class Borne {
     heure;
 
     constructor(idBorne, type, date, heure) {
-        this.idBorne;
-        this.type;
-        this.date;
-        this.heure;
+        this.idBorne = idBorne;
+        this.type = type;
+        this.date = date;
+        this.heure = heure;
     }
 }
