@@ -310,13 +310,48 @@ function gererSoumission(event) {
     fermerModale();
 }
 
-// Initialisation au chargement du DOM
+
+/****************************************************** */
+/*********HISTORIQUE ET SUPPRESSION ******************** */
+/****************************************************** */
+
+/**Fonction lire les réservations depuis le local storage */
+function lireResaLocalStorage() {
+    let objectString = localStorage.getItem("reservations");
+
+    if (!objectString) {
+        console.log("Aucune réservation trouvée");
+        return;
+    }
+
+    let reservations = JSON.parse(objectString);
+
+    // Affichage de chaque réservation
+    reservations.forEach((resa, index) => {
+        console.log(`Réservation ${index + 1} :`);
+        console.log(`- ID Borne : ${resa.idBorne}`);
+        console.log(`- Type : ${resa.typeBorne}`);
+        console.log(`- Date : ${resa.date}`);
+        console.log(`- Heure de début : ${resa.heureDebut}`);
+        console.log(`- Durée : ${resa.duree}h`);
+    });
+}
+
+/**Fonction qui affiche l'historiue dans un tableau / avec supression et maj du local storage */
+
+
+/****************************************************** */
+/*********INITIALISATION AU CHARGEMENT DU DOM********** */
+/****************************************************** */
+
+/**Initialisation au chargement du DOM*/
 document.addEventListener("DOMContentLoaded", () => {
     initialiserFormulaire();
     afficherMap(); // Affiche la carte au chargement
     obtenirGeolocalisation(); // Prépare le formulaire de recherche d'adresse
     recupererBornesProches(); // Charge et affiche les bornes
     basculerVue(); // Active le bouton bascule vue
+    lireResaLocalStorage();
     document.getElementById("form_resa").addEventListener("submit", gererSoumission); // Ajoute l'écouteur de soumission
     document.getElementById("fermer_modale").addEventListener("click", fermerModale); //bouton avec cet ID pour fermer la modale
 });
