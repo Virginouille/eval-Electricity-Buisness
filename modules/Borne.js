@@ -5,7 +5,6 @@ export class Borne {
     date;
     heure;
 
-
     constructor(idBorne, type, date, heure) {
         this.idBorne;
         this.type;

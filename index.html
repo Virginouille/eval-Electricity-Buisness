@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Eval Buisness Case</title>
+</head>
+
+<body>
+
+    <header class="zone_header">
+        <h1>Electricity Buisness</h1>
+        <p>Prochaine réservation dans</p>
+        <span class="temps_resa"></span>
+    </header>
+
+    <div class="zone adresse">
+        <p>Adresse</p>
+        <input type="text" class="adresse">
+        <button class="btn_recherce">Rechercher</button>
+    </div>
+
+    <div class="zone_basculer_vue">
+        <button class="btn_basculer_vue">Basculer vue</button>
+    </div>
+
+    <div class="zone_map">
+        <h2>Autour de vous</h2>
+        <div class="map"></div>
+    </div>
+
+    <div class="nouvelle_resa">
+
+        <div class="zone_haute_resa">
+            <h2>Nouvelle reservation</h2>
+            <span class="id_resa"></span>
+        </div>
+
+        <div class="zone_basse_resa">
+
+            <p>Date : </p>
+            <input type="date" placeholder="16/07/2025" id="date">
+
+            <p>Heure de début</p>
+            <input type="time" placeholder="12:00" id="heure">
+
+            <p>Durée</p>
+            <input type="number" placeholder="1" id="duree">
+
+            <button class="btn_confirmer">btn_confirmer</button>
+
+        </div>
+
+    </div>
+
+    <div class="mes_resa">
+
+        <h2>Mes réservations</h2>
+
+        <table>
+
+            <thead>
+                <tr>
+                    <th scope="col">ID Borne</th>
+                    <th scope="col">Type</th>
+                    <th scope="col">Date</th>
+                    <th scope="col">Heure</th>
+                    <th scope="col">Durée</th>
+                    <th scope="col">Actions</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                <td id="idBorne">test</td>
+                <td id="type">test</td>
+                <td id="date">test</td>
+                <td id="heure">test</td>
+                <td id="duree">test</td>
+                <td id="actions"><button id="btn_supprimer">Supprimer</button></td>
+            </tbody>
+        </table>
+
+    </div>
+    <script src="main.js"></script>
+</body>
+
+</html>
