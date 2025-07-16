@@ -7,9 +7,9 @@ import { BornePrivee } from "./modules/BornePrivee.js";
 /************************************/
 
 let map; // variable globale pour la carte
+let borneSelectionnee = null; // Nouvelle variable pour stocker la borne cliquée
 
 /**Fonction afficher map */
-
 function afficherMap(lat = 45.75806298279684, lon = 3.1270760116784317) {
     map = L.map('map').setView([lat, lon], 13);
 
@@ -24,9 +24,7 @@ function afficherMap(lat = 45.75806298279684, lon = 3.1270760116784317) {
 /***********************************/
 
 /***Fonction recherche adresse****** */
-
 function obtenirGeolocalisation() {
-
     document.getElementById("zone_adresse").addEventListener("submit", async function (event) {
         event.preventDefault();
         const addresse = document.getElementById("adresse").value.trim();
@@ -39,7 +37,6 @@ function obtenirGeolocalisation() {
         }
 
         try {
-            // Appel à k'api
             const url = `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(addresse)}`;
             const reponse = await fetch(url, {
                 headers: {
@@ -54,29 +51,23 @@ function obtenirGeolocalisation() {
             const data = await reponse.json();
 
             if (data.length === 0) {
-                // Si pas de résultat
                 resultatRch.textContent = "Adresse non trouvée. 222 boulevard Gustave Flaubert, Clermont-Ferrand";
                 resultatRch.innerHTML += `<br>Latitude : 45.75806298279684<br>Longitude : 3.1270760116784317`;
             } else {
                 const place = data[0];
                 resultatRch.innerHTML = `
-            Adresse trouvée : ${place.display_name} <br>
-            Latitude : ${place.lat} <br>
-            Longitude : ${place.lon}`;
+                Adresse trouvée : ${place.display_name} <br>
+                Latitude : ${place.lat} <br>
+                Longitude : ${place.lon}`;
 
-                // Mise à jour de la vue sur la carte avec les nouvelles coordonnées
                 map.setView([place.lat, place.lon], 13);
-
-                //ajout du marker à l'adresse
-                const marker = L.marker([place.lat, place.lon]).addTo(map);
+                L.marker([place.lat, place.lon]).addTo(map);
             }
         } catch (error) {
             resultatRch.textContent = "Erreur lors de la recherche : " + error.message;
         }
     });
-
 }
-
 
 /******************************** */
 /*******Bornes à proximité ********/
@@ -84,7 +75,7 @@ function obtenirGeolocalisation() {
 
 let bornesData = null;
 
-/**Fonction récupérer bornes dans un rayon de 5 km et afficher markeurs */ //A améliorer en divisant le fonction en deux récup bornes et afficher markeurs
+/**Fonction récupérer bornes dans un rayon de 5 km et afficher markeurs */
 function recupererBornesProches() {
     fetch("bornes.json")
         .then(response => {
@@ -98,24 +89,25 @@ function recupererBornesProches() {
             bornesData.features.forEach(borne => {
                 const [lon, lat] = borne.geometry.coordinates;
 
-                // Récupération des propriétés importantes
                 const idBorne = borne.id || borne.properties.id || null;
                 const access = borne.properties.access || "";
                 const type = borne.properties.amenity || "";
+                const name = borne.properties.name || "Borne sans nom"; // Ajout d'un nom pour le popup
 
-                // Instanciation selon access
                 let instanceBorne;
                 if (access === "private") {
                     const proprietaire = borne.properties.owner || "Inconnu";
-                    instanceBorne = new BornePrivee(idBorne, type, date, heure, lat, lon, proprietaire);
+                    instanceBorne = new BornePrivee(idBorne, type, lat, lon, proprietaire);
                 } else if (type === "charging_station") {
-                    instanceBorne = new BornePublique(idBorne, type, date, heure, lat, lon);
+                    instanceBorne = new BornePublique(idBorne, type, lat, lon);
                 }
 
                 if (instanceBorne) {
                     const marker = L.marker([lat, lon]).addTo(map);
+                    marker.bindPopup(`<b>${name}</b><br>Type: ${type}<br>Accès: ${access}`); // Ajout d'un popup
 
                     marker.on('click', () => {
+                        borneSelectionnee = instanceBorne; // Stocker la borne cliquée
                         const modale = document.getElementById("form_resa");
                         if (modale.style.display === "block") {
                             fermerModale();
@@ -127,39 +119,49 @@ function recupererBornesProches() {
             });
         })
         .catch(error => {
-            console.error("Erreur : ", error);
+            console.error("Erreur lors de la récupération ou de l'affichage des bornes : ", error);
         });
-
-    return data.features;
 }
-/**Fonction qui affiche les bornes sous forme de liste html */ //A adapter à la recherche car là lié directement au data du json
-function afficherEnListe(data) {
 
+/**Fonction qui affiche les bornes sous forme de liste html */
+function afficherEnListe(data) {
     const bornes = data.features;
     const liste = document.getElementById("liste_html");
-
-    liste.innerHTML = "";
+    liste.innerHTML = ""; // Vide la liste avant de la remplir
 
     bornes.forEach(borne => {
-
         const [lon, lat] = borne.geometry.coordinates;
+        const idBorne = borne.id || borne.properties.id || null;
+        const access = borne.properties.access || "";
+        const type = borne.properties.amenity || "";
+        const name = borne.properties.name || "Nom inconnu";
+
+        let instanceBorne;
+        if (access === "private") {
+            const proprietaire = borne.properties.owner || "Inconnu";
+            instanceBorne = new BornePrivee(idBorne, type, lat, lon, proprietaire);
+        } else if (type === "charging_station") {
+            instanceBorne = new BornePublique(idBorne, type, lat, lon);
+        }
 
         const li = document.createElement("li");
-        li.textContent = `Borne : ${borne.properties.name || "Nom inconnu"} (${lat}, ${lon})`;
+        li.textContent = `Borne : ${name} (Lat: ${lat}, Lon: ${lon})`;
 
         const btnReserver = document.createElement("button");
         btnReserver.textContent = "Réserver";
         btnReserver.classList.add("btn_reserver");
+        btnReserver.addEventListener('click', () => {
+            borneSelectionnee = instanceBorne; // Stocker la borne pour la réservation
+            ouvrirModale(instanceBorne);
+        });
 
         li.appendChild(btnReserver);
         liste.appendChild(li);
-
     });
 }
 
 /**Fonction basculer vue (carte et liste)*/
 function basculerVue() {
-
     const btnBasculer = document.getElementById("btn_basculer_vue");
     const carte = document.getElementById("map");
     const liste = document.getElementById("liste_html");
@@ -170,7 +172,7 @@ function basculerVue() {
         event.preventDefault();
 
         if (!bornesData) {
-            console.log("Données non disponibles pour afficher la liste.");
+            console.log("Données non disponibles pour afficher la liste. Récupération en cours...");
             return;
         }
 
@@ -192,10 +194,10 @@ function basculerVue() {
 /******************************************************* */
 
 /**Fonction pour ouvrir modale */
-function ouvrirModale() {
-
+function ouvrirModale(borne) {
     const modale = document.getElementById("form_resa");
     modale.style.display = "block";
+    console.log("Modale ouverte pour la borne:", borne);
 }
 
 /**Fonction fermer modale */
@@ -228,27 +230,93 @@ function getHeureParDefaut() {
 
 /* Fonction pour initialiser les valeurs du formulaire*/
 function initialiserFormulaire() {
-    document.getElementById('date_resa').value = getDateDuJour();
-    document.getElementById('heure_resa').value = getHeureParDefaut();
-    document.getElementById('duree_resa').value = 1;
+    document.getElementById("date_resa").value = getDateDuJour();
+    document.getElementById("heure_resa").value = getHeureParDefaut();
+    document.getElementById("duree_resa").value = 1;
 }
 
+/******************************** ***************/
+/*********VALIDER LES DONNEES DU FORM********** */
+/******************************** ***************/
+
+/*Fonction pour valider les données du formulaire*/
+function validerDonnees(date, heureDebut, duree) {
+    const now = new Date();
+    const selectedDateTime = new Date(`${date}T${heureDebut}`);
+
+    if (selectedDateTime < now) {
+        alert("La date et l'heure doivent être aujourd'hui ou dans le futur.");
+        return false;
+    }
+
+    const heure = selectedDateTime.getHours();
+    if (heure < 6 || heure > 22) {
+        alert("L'heure de début doit être entre 6h et 22h.");
+        return false;
+    }
+
+    if (isNaN(duree) || duree < 1 || duree > 6) {
+        alert("La durée doit être comprise entre 1 et 6 heures.");
+        return false;
+    }
+
+    return true;
+}
 /******************************** */
 /*********RESERVATION BORNES********** */
 /******************************** */
 
-function reserverBorne() {
-    //date du jour par default
-    //heure format 24 h
+/** Fonction pour créer la réservation sous forme d'objet*/
+function creerReservation(idBorne, typeBorne, date, heureDebut, duree) {
+    return {
+        idBorne,
+        typeBorne,
+        date,
+        heureDebut,
+        duree
+    };
 }
 
-initialiserFormulaire();
-afficherMap();
-obtenirGeolocalisation();
-basculerVue();
-recupererBornesProches();
-cliquerMarker();
-formatageDonnees();
+// Fonction appelée au submit du formulaire
+function gererSoumission(event) {
+    event.preventDefault();
 
+    if (!borneSelectionnee) {
+        alert("Aucune borne n'a été sélectionnée pour la réservation.");
+        return;
+    }
 
+    const date = document.getElementById("date_resa").value;
+    const heureDebut = document.getElementById("heure_resa").value;
+    const duree = parseInt(document.getElementById("duree_resa").value, 10);
 
+    if (!validerDonnees(date, heureDebut, duree)) {
+        return;
+    }
+
+    const idBorne = borneSelectionnee.idBorne;
+    const typeBorne = borneSelectionnee.type;
+
+    const reservation = creerReservation(idBorne, typeBorne, date, heureDebut, duree);
+
+    const anciennesReservations = JSON.parse(localStorage.getItem("reservations")) || [];
+    anciennesReservations.push(reservation);
+    localStorage.setItem("reservations", JSON.stringify(anciennesReservations));
+
+    alert("Réservation enregistrée et sauvegardée !");
+
+    event.target.reset();
+    initialiserFormulaire();
+    fermerModale();
+}
+
+// Initialisation au chargement du DOM
+document.addEventListener("DOMContentLoaded", () => {
+    initialiserFormulaire();
+    afficherMap(); // Affiche la carte au chargement
+    obtenirGeolocalisation(); // Prépare le formulaire de recherche d'adresse
+    recupererBornesProches(); // Charge et affiche les bornes
+    basculerVue(); // Active le bouton bascule vue
+    document.getElementById("form_resa").addEventListener("submit", gererSoumission); // Ajoute l'écouteur de soumission
+    document.getElementById("fermer_modale").addEventListener("click", fermerModale); //bouton avec cet ID pour fermer la modale
+});
