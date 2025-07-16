@@ -82,6 +82,7 @@ function obtenirGeolocalisation() {
 /*******Bornes à proximité ********/
 /******************************** */
 
+let bornesData = null;
 
 /**Fonction récupérer bornes dans un rayon de 5 km et afficher markeurs */ //A améliorer en divisant le fonction en deux récup bornes et afficher markeurs
 function recupererBornesProches() {
@@ -92,17 +93,27 @@ function recupererBornesProches() {
             if (!response.ok) throw new Error("Erreur chargement du json");
             return response.json();
         })
+
         .then(data => {
             console.log(data);
+            bornesData = data;
 
             //Utilisation du .featurs car json contient des object sinon .forEach
-            data.features.forEach(borne => {
+            bornesData.features.forEach(borne => {
                 const [lon, lat] = borne.geometry.coordinates; //inverse coordonnées pour adapter à leafet
-                L.marker([lat, lon]).addTo(map); //ajout marker par borne
+                const marker = L.marker([lat, lon]).addTo(map); //ajout marker par borne
+
+                marker.on('click', () => {  //ouvrir modale sur marker au clic
+                    const modale = document.getElementById("form_resa");
+                    if (modale.style.display === "block") {
+                        fermerModale();
+                    } else {
+                        ouvrirModale();
+                    }
+                });
             });
 
-            afficherEnListe(data); //récupération de la fonction afficherenliste
-
+            //penser à instancier borne private "accesse private" et borne public "charging station ou customers"
         })
         .catch(error => {
             console.error("Erreur : ", error);
@@ -111,27 +122,93 @@ function recupererBornesProches() {
     return data.features;
 }
 
-/**Fonction qui affiche les bornes sous forme de liste html */
+/**Fonction qui affiche les bornes sous forme de liste html */ //A adapter à la recherche car là lié directement au data du json
 function afficherEnListe(data) {
 
     const bornes = data.features;
     const liste = document.getElementById("liste_html");
 
+    liste.innerHTML = "";
+
     bornes.forEach(borne => {
 
         const [lon, lat] = borne.geometry.coordinates;
+
         const li = document.createElement("li");
         li.textContent = `Borne : ${borne.properties.name || "Nom inconnu"} (${lat}, ${lon})`;
+
+        const btnReserver = document.createElement("button");
+        btnReserver.textContent = "Réserver";
+        btnReserver.classList.add("btn_reserver");
+
+        li.appendChild(btnReserver);
         liste.appendChild(li);
 
     });
 }
 
+/**Fonction basculer vue (carte et liste)*/
+function basculerVue() {
+
+    const btnBasculer = document.getElementById("btn_basculer_vue");
+    const carte = document.getElementById("map");
+    const liste = document.getElementById("liste_html");
+
+    let vueCarteActive = true;
+
+    btnBasculer.addEventListener("click", (event) => {
+        event.preventDefault();
+
+        if (!bornesData) {
+            console.log("Données non disponibles pour afficher la liste.");
+            return;
+        }
+
+        if (vueCarteActive) {
+            carte.style.display = "none";
+            liste.style.display = "block";
+            afficherEnListe(bornesData); // affiche la liste des bornes
+        } else {
+            liste.style.display = "none";
+            carte.style.display = "block";
+        }
+
+        vueCarteActive = !vueCarteActive;
+    });
+}
+
+/******************************************************* */
+/********* MODALE RESERVATION********** */
+/******************************************************* */
+
+/**Fonction pour ouvrir modale */
+function ouvrirModale() {
+
+    const modale = document.getElementById("form_resa");
+    modale.style.display = "block";
+}
+
+/**Fonction fermer modale */
+function fermerModale() {
+    const modale = document.getElementById("form_resa");
+    modale.style.display = "none";
+}
+
+/******************************** */
+/*********RESERVATION BORNES********** */
+/******************************** */
+
+function reserverBorne() {
+    //date du jour par default
+    //heure format 24 h
+}
 
 
 afficherMap();
 obtenirGeolocalisation();
+basculerVue();
 recupererBornesProches();
+cliquerMarker();
 
 
 

@@ -30,13 +30,33 @@
     </form>
 
     <div class="zone_basculer_vue">
-        <button class="btn_basculer_vue">Basculer vue</button>
+        <button id="btn_basculer_vue">Basculer vue</button>
     </div>
 
     <div class="zone_map">
         <h2>Autour de vous</h2>
         <div id="map"></div>
-        <ul id="liste_html"></ul>
+        <ul id="liste_html" style="display: none;"></ul>
+
+        <!---MODALE FORMULAIRE DE RESA-->
+        <form action="" method="post" id="form_resa">
+
+            <div class="form_zone_date">
+                <label for="date">Date </label>
+                <input type="date" name="date_resa" id="date_resa" required />
+            </div>
+
+            <div class="form_zone_heure">
+                <label for="heure">Heure de début</label>
+                <input type="time" name="heure_resa" id="heure_resa" required />
+            </div>
+
+            <div class="form_zone_duree">
+                <label for="duree">Durée</label>
+                <input type="number" name="duree_resa" id="duree_resa" required />
+            </div>
+
+        </form>
     </div>
 
     <div class="nouvelle_resa">

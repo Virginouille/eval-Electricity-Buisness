@@ -2,3 +2,44 @@
     height: 500px;
     width: 500px;
 }
+
+/**FORMULAIRE RESERVATION*/
+/* Formulaire */
+#form_resa {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    display: none;
+}
+
+/* Chaque zone de formulaire */
+#form_resa>div {
+    display: flex;
+    flex-direction: column;
+}
+
+/* Labels */
+#form_resa label {
+    font-weight: 600;
+    margin-bottom: 6px;
+    color: #333;
+}
+
+/* Inputs */
+#form_resa input[type="date"],
+#form_resa input[type="time"],
+#form_resa input[type="number"] {
+    padding: 8px 12px;
+    border: 1.8px solid #ccc;
+    border-radius: 6px;
+    font-size: 1rem;
+    transition: border-color 0.3s ease;
+}
+
+#form_resa input[type="date"]:focus,
+#form_resa input[type="time"]:focus,
+#form_resa input[type="number"]:focus {
+    outline: none;
+    border-color: #007bff;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+}
