@@ -86,34 +86,45 @@ let bornesData = null;
 
 /**Fonction récupérer bornes dans un rayon de 5 km et afficher markeurs */ //A améliorer en divisant le fonction en deux récup bornes et afficher markeurs
 function recupererBornesProches() {
-
-    //récupération du json avec les bornes
     fetch("bornes.json")
         .then(response => {
             if (!response.ok) throw new Error("Erreur chargement du json");
             return response.json();
         })
-
         .then(data => {
             console.log(data);
             bornesData = data;
 
-            //Utilisation du .featurs car json contient des object sinon .forEach
             bornesData.features.forEach(borne => {
-                const [lon, lat] = borne.geometry.coordinates; //inverse coordonnées pour adapter à leafet
-                const marker = L.marker([lat, lon]).addTo(map); //ajout marker par borne
+                const [lon, lat] = borne.geometry.coordinates;
 
-                marker.on('click', () => {  //ouvrir modale sur marker au clic
-                    const modale = document.getElementById("form_resa");
-                    if (modale.style.display === "block") {
-                        fermerModale();
-                    } else {
-                        ouvrirModale();
-                    }
-                });
+                // Récupération des propriétés importantes
+                const idBorne = borne.id || borne.properties.id || null;
+                const access = borne.properties.access || "";
+                const type = borne.properties.amenity || "";
+
+                // Instanciation selon access
+                let instanceBorne;
+                if (access === "private") {
+                    const proprietaire = borne.properties.owner || "Inconnu";
+                    instanceBorne = new BornePrivee(idBorne, type, date, heure, lat, lon, proprietaire);
+                } else if (type === "charging_station") {
+                    instanceBorne = new BornePublique(idBorne, type, date, heure, lat, lon);
+                }
+
+                if (instanceBorne) {
+                    const marker = L.marker([lat, lon]).addTo(map);
+
+                    marker.on('click', () => {
+                        const modale = document.getElementById("form_resa");
+                        if (modale.style.display === "block") {
+                            fermerModale();
+                        } else {
+                            ouvrirModale(instanceBorne);
+                        }
+                    });
+                }
             });
-
-            //penser à instancier borne private "accesse private" et borne public "charging station ou customers"
         })
         .catch(error => {
             console.error("Erreur : ", error);
@@ -121,7 +132,6 @@ function recupererBornesProches() {
 
     return data.features;
 }
-
 /**Fonction qui affiche les bornes sous forme de liste html */ //A adapter à la recherche car là lié directement au data du json
 function afficherEnListe(data) {
 
@@ -194,6 +204,9 @@ function fermerModale() {
     modale.style.display = "none";
 }
 
+/**Fonction formatage de données du form */
+function formatageDonnees() { }
+
 /******************************** */
 /*********RESERVATION BORNES********** */
 /******************************** */
@@ -209,6 +222,7 @@ obtenirGeolocalisation();
 basculerVue();
 recupererBornesProches();
 cliquerMarker();
+formatageDonnees();
 
 
 
