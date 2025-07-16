@@ -370,6 +370,7 @@ function afficherHistorique() {
         const tdBtn = document.createElement("td");
         const btnSupprimer = document.createElement("button");
         btnSupprimer.textContent = "Supprimer";
+        btnSupprimer.className = "btn_supprimer";
 
         tdBtn.appendChild(btnSupprimer);
 
@@ -381,12 +382,48 @@ function afficherHistorique() {
         tr.appendChild(tdBtn);
 
         tbody.appendChild(tr);
+
+        supprimerResa();
     });
 
 }
 
-/**Fonction au click pour la suppression de la résa */
+/**Fonction au click pour la suppression de la résa */  //pb en supprime plusieurs
+function supprimerResa() {
 
+    const boutons = document.querySelectorAll(".btn_supprimer");
+
+    boutons.forEach((btn) => {
+        btn.addEventListener("click", (event) => {
+            event.preventDefault();
+            const index = parseInt(btn.getAttribute("data-index"));
+
+            let reservations = lireResaLocalStorage();
+            reservations.splice(index, 1);
+
+            localStorage.setItem("reservations", JSON.stringify(reservations));
+            afficherHistorique();
+        });
+    });
+}
+
+/****************************************************** */
+/*********COMPTE A REBOURS VERS PROCHAINE RESERVATION********** */
+/****************************************************** */
+function compteRebours() {
+
+    const reservations = lireResaLocalStorage(); //Récup les résas
+
+    const heureActuelle = new Date();
+
+    const tempsResa = document.createElement("p");
+    tempsResa.innerHTML =
+
+
+        reservations.forEach(resa, index => {
+
+        })
+}
 
 /****************************************************** */
 /*********INITIALISATION AU CHARGEMENT DU DOM********** */
@@ -401,6 +438,7 @@ document.addEventListener("DOMContentLoaded", () => {
     basculerVue(); // Active le bouton bascule vue
     lireResaLocalStorage();
     afficherHistorique();
+    supprimerResa(); //Supprime réservation dans le tableau
     document.getElementById("form_resa").addEventListener("submit", gererSoumission); // Ajoute l'écouteur de soumission
     document.getElementById("fermer_modale").addEventListener("click", fermerModale); //bouton avec cet ID pour fermer la modale
 });
