@@ -385,6 +385,9 @@ function afficherHistorique() {
 
 }
 
+/**Fonction au click pour la suppression de la résa */
+
+
 /****************************************************** */
 /*********INITIALISATION AU CHARGEMENT DU DOM********** */
 /****************************************************** */
